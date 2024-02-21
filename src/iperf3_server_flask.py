@@ -14,7 +14,7 @@ def upload_file():
     if file:
         filename = secure_filename(file.filename)
         # 确保上传目录存在
-        upload_folder = '../upload/'
+        upload_folder = '/upload/'
         os.makedirs(upload_folder, exist_ok=True)
         file_path = os.path.join(upload_folder, filename)
         file.save(file_path)
