@@ -1,4 +1,6 @@
 from flask import Flask, request
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 
@@ -11,7 +13,11 @@ def upload_file():
         return 'No selected file'
     if file:
         filename = secure_filename(file.filename)
-        file.save(os.path.join('/path/to/upload/', filename))
+        # 确保上传目录存在
+        upload_folder = '../upload/'
+        os.makedirs(upload_folder, exist_ok=True)
+        file_path = os.path.join(upload_folder, filename)
+        file.save(file_path)
         return 'File uploaded successfully'
 
 if __name__ == '__main__':
